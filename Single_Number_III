@@ -1,0 +1,24 @@
+// https://leetcode.com/problems/single-number-iii/
+
+class Solution {
+    public int[] singleNumber(int[] nums) {
+        HashMap<Integer, Integer> map  = new HashMap<>(); 
+		for (int i=0; i<nums.length; i++) 
+		{
+			if(map.containsKey(nums[i]))
+				map.replace(nums[i], 2);
+			else
+				map.put(nums[i], 1);
+		}
+		int[] ret = new int[2];
+        int i=0;
+		for ( Integer key : map.keySet() ) {
+			if(map.get(key)==1) {
+                ret[i] = key;
+				 System.out.println(key);
+                 i++;
+			}
+		}
+        return ret;
+    }
+}
