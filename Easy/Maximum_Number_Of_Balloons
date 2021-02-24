@@ -1,0 +1,57 @@
+// https://leetcode.com/problems/maximum-number-of-balloons
+
+class Solution {
+    public int maxNumberOfBalloons(String text) {
+     HashMap<Character,Integer> map = new HashMap<>();
+        char c;
+        String balloon = "banlo";
+        for(int i=0; i<text.length(); i++)
+        {
+            c = text.charAt(i);
+            if(balloon.contains(Character.toString(c)))
+            {
+                if(map.containsKey(c))
+                {
+                    map.replace(c, map.get(c)+1);
+                }
+                else
+                    map.put(c,1);
+            }
+           
+        }
+        System.out.println(Arrays.asList(map)); 
+//         for (Character c: map.keySet()){
+//             int value = map.get(c);  
+//             System.out.println(c + " " + value);  
+//             }
+        
+        if(map.size() < balloon.length())
+        {
+            return 0;
+        }
+            
+      
+        int min = Integer.MAX_VALUE;
+        for(int i=0; i<3;i++)
+        {
+            c = balloon.charAt(i);
+            if(map.get(c) < min)
+            {
+                min = map.get(c);
+            }
+        }
+        int o_val = map.get('o');
+        int l_val = map.get('l');
+        if((o_val < min*2))
+        {
+            if((l_val < min*2))
+            {
+               if(l_val <= o_val)
+                    return l_val/2; 
+            }
+              return o_val/2;   
+        }
+      
+        return min;
+    }
+}
