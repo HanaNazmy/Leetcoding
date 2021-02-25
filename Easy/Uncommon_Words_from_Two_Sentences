@@ -1,0 +1,53 @@
+// https://leetcode.com/problems/uncommon-words-from-two-sentences
+
+class Solution {
+    public String[] uncommonFromSentences(String A, String B) {
+        String[] A_splitted = A.split(" ");
+        String[] B_splitted = B.split(" ");
+        HashMap<String, Integer> map = new HashMap<>();
+        HashMap<String, Integer> map2 = new HashMap<>();
+        List<String> duplicates = new ArrayList<>();
+        List<String> uncommon = new ArrayList<>();
+        
+        // Filling map
+        for(int i=0; i<A_splitted.length; i++)
+        {
+            if(map.containsKey(A_splitted[i]))
+            {
+                map.replace(A_splitted[i], map.get(A_splitted[i]) +1);
+                duplicates.add(A_splitted[i]);
+            }
+            else
+                map.put(A_splitted[i], 1);
+        }
+        
+        // Filling map2
+         for(int i=0; i<B_splitted.length; i++)
+        {
+            if(map2.containsKey(B_splitted[i]))
+            {
+                map2.replace(B_splitted[i], map2.get(B_splitted[i]) +1);
+                duplicates.add(B_splitted[i]);
+            }
+            else
+                map2.put(B_splitted[i], 1);
+        }
+        
+       // System.out.println(map.keySet().toString());
+       // System.out.println(map2.keySet().toString());
+      
+      for(String str : map.keySet()){
+             if((map2.containsKey(str)==false) && (duplicates.contains(str)==false))
+                 uncommon.add(str);
+           }
+        for(String str : map2.keySet()){
+             if((map.containsKey(str)==false)  && (duplicates.contains(str)==false))
+                 uncommon.add(str);
+           }
+        // System.out.println(uncommon.toString());
+        String[] uncommonWords = new String[uncommon.size()]; 
+        uncommonWords = uncommon.toArray(uncommonWords);
+        
+        return uncommonWords;
+    }
+}
