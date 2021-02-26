@@ -1,0 +1,33 @@
+// https://leetcode.com/problems/find-the-difference/
+
+class Solution {
+    public char findTheDifference(String s, String t) {
+        HashMap<Character,Integer> map = new HashMap<>();
+        char c = '\0';
+        for(int i=0; i<s.length(); i++)
+        {
+            c = s.charAt(i);
+            if(map.containsKey(c))
+            {
+                map.replace(c, map.get(c)+1);
+            }else
+                map.put(c,1);
+        }
+        int val =0;
+        for(int i=0;i<t.length();i++)
+        {
+            c = t.charAt(i);
+            if(map.containsKey(c))
+            {
+               val = map.get(c);
+                if(val>1)
+                {
+                    map.replace(c,val-1);
+                }else
+                    map.remove(c);
+            }else
+                return c;
+        }
+        return c;
+    }
+}
