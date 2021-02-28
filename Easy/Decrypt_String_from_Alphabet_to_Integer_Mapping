@@ -1,0 +1,62 @@
+//https://leetcode.com/problems/decrypt-string-from-alphabet-to-integer-mapping/
+
+class Solution {
+      StringBuilder sb = new StringBuilder("");
+      StringBuilder token;
+      // the value to be added to a number to convert it to a char
+      // mapping 1 to a etc --> difference in ascii code = 96
+      int convert = 96;
+      int x;
+
+    public String freqAlphabets(String s) {
+        // Split s by # separator
+        String[] words = s.split("#");
+        // Check if last token of s has #
+        boolean flag = s.endsWith("#");
+        // loop on all tokens except last token
+        for(int i=0; i< words.length-1; i++)
+         {
+             convertToString(words[i],2);
+         }
+        // last token check
+          if(flag)
+          {
+              convertToString(words[words.length-1],2);  
+          }
+          else
+          {
+              convertToString(words[words.length-1],0);
+          }
+         return sb.toString();  
+    }
+    
+    private int getSmallInt(char c)
+    {
+        // get integer value of char by subtracting the char '0' from it
+        // '0' 48 -> ASCII 
+        int char_to_int = c -'0';
+        x = convert + char_to_int;
+       return x;
+    }
+    
+    private int getLargeInt(StringBuilder sb)
+    {
+        return Integer.parseInt(sb.toString())+convert;
+    }
+    
+    private void convertToString(String word, int limit)
+    {
+      token = new StringBuilder(word);
+      int i = 0;
+      while(token.length()> limit)
+      {
+        sb.append(Character.toString(getSmallInt(token.charAt(i))));
+        token.deleteCharAt(0);
+      }
+        if(limit!=0)
+        {
+            sb.append(Character.toString(getLargeInt(token))); 
+        }
+        
+    }
+}
