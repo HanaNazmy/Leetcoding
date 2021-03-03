@@ -1,0 +1,57 @@
+// https://leetcode.com/problems/find-words-that-can-be-formed-by-characters
+
+class Solution {
+    HashMap<Character,Integer> map = new HashMap<>();
+    HashMap<Character, Integer> wordmap = new HashMap<>();
+    public int countCharacters(String[] words, String chars) {
+        char c = '\0';
+        // HashMap for allowed chars
+        for(int i=0; i<chars.length(); i++)
+        {
+            c = chars.charAt(i);
+            if(map.containsKey(c))
+            {
+                map.replace(c, map.get(c)+1);
+            }else
+                map.put(c,1);
+        }
+        int length = 0;
+        String word = "";
+        
+        for(int i=0; i<words.length; i++)
+        {   word = words[i];
+         // filling wordmap with one word and its frequency
+            for(int j=0; j< word.length(); j++)
+            {
+                c = word.charAt(j);
+                if(wordmap.containsKey(c))
+                {
+                    wordmap.replace(c, wordmap.get(c)+1);
+                }else
+                    wordmap.put(c,1);      
+            }
+         // Checking each char in word
+             if(checkChar())
+             {
+                 length+= word.length();
+             }
+         wordmap.clear();
+        }
+        return length;
+    }
+    
+    private boolean checkChar()
+    {
+         for (Character ch : wordmap.keySet())  
+            { 
+                if(map.containsKey(ch))
+                {
+                    if(map.get(ch) < wordmap.get(ch))
+                        return false;
+                }
+             else return false;
+            }
+        return true;
+    }
+    
+}
