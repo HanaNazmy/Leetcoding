@@ -1,0 +1,25 @@
+// https://leetcode.com/problems/determine-if-string-halves-are-alike/
+
+class Solution {
+    public boolean halvesAreAlike(String s) {
+        int a_count = 0;
+        int b_count = 0;
+        int half_length = s.length() / 2;
+        for(int i = 0; i<half_length; i++){
+            if(isVowel(s.charAt(i)))
+                a_count++;
+        }
+        for(int j=half_length; j<s.length(); j++){
+            if(isVowel(s.charAt(j)))
+                b_count++;
+        }
+        return a_count == b_count;
+        
+    }
+    
+    public boolean isVowel(char c){
+        if ((Character.toLowerCase(c) == 'a' ) || (Character.toLowerCase(c) == 'e' ) || (Character.toLowerCase(c) == 'i' ) || (Character.toLowerCase(c) == 'o' ) || (Character.toLowerCase(c) == 'u' ))
+            return true;
+        return false;
+    } 
+}
